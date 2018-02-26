@@ -1,8 +1,8 @@
 app.config(function($routeProvider) {
-    $routeProvider.when('/#', {
+    $routeProvider.when('/', {
         templateUrl: 'view/inicial.html',
         controller: 'InicialCtrl'
     });
 
-    $routeProvider.otherwise({redirectTo: '/#'});
+    $routeProvider.otherwise({redirectTo: '/'});
 });
