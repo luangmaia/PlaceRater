@@ -1,0 +1,19 @@
+<div class="container">
+    <h3 class="font-weight-bold">{{lugar.name}}</h3>
+    <p class="font-weight-bold">
+        <span class="sr-only">{{lugar.avgStars}} estrelas</span>
+        <span>
+            <img src="images/estrela.png" class="img-estrela" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:lugar.avgStars" aria-hidden="true">
+        </span>
+        <span class="font-weight-light">{{lugar.qtdeStars}} avaliações</span>
+    </p>
+    <p class="font-weight-bold">
+        Custo: 
+        <span class="sr-only">Nota {{lugar.avgPrices}}</span>
+        <img src="images/dollar.svg" class="img-dollar" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:lugar.avgPrices" aria-hidden="true">
+    </p>
+    <p class="font-weight-bold">
+        Categorias: </br>
+        <span class="font-weight-normal" ng-repeat="categoria in lugar.categories">{{categoria}} </span>
+    </p>
+</div>

@@ -1,5 +1,19 @@
 .container {
     margin-top: 1rem;
     margin-bottom: 1rem;
-    max-width: 95%;
+    max-width: 80%;
+}
+
+.text-break {
+    word-wrap: break-word;
+}
+
+.img-estrela {
+    width: auto;
+    height: 1rem;
+}
+
+.img-dollar {
+    width: auto;
+    height: 1rem;
 }
