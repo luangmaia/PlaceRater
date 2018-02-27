@@ -1,26 +1,50 @@
 <div class="container">
-    <h2><span class="text-uppercase">Top</span> 6 Populares</h2>
-    <div class="row">
-        <div class="col-2" ng-repeat="place in topPopulares">
-            <img class="image-top" ng-src="{{place.image}}">
-            <p class="font-weight-bold">{{place.name}}</p>
+    <section class="secao-top">
+        <h2><span class="text-uppercase">Top</span> 4 populares</h2>
+        <div class="row">
+            <div class="col-3" ng-repeat="place in topPopulares">
+                <a href="#/info" alt="Link para as informações do lugar: {{place.name}}">
+                    <img class="image-top" ng-src="{{place.image}}">
+                    <p class="font-weight-bold">{{place.name}}</p>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <h2><span class="text-uppercase">Top</span> 6 Avaliados</h2>
-    <div class="row">
-        <div class="col-2" ng-repeat="place in topAvaliados">
-            <img class="image-top" ng-src="{{place.image}}">
-            <p class="font-weight-bold">{{place.name}}</p>
+    <section class="secao-top">
+        <h2><span class="text-uppercase">Top</span> 4 avaliados</h2>
+        <div class="row">
+            <div class="col-3" ng-repeat="place in topAvaliados">
+                <a href="#/info" alt="Link para as informações do lugar: {{place.name}}">
+                    <img class="image-top" ng-src="{{place.image}}">
+                    <p class="font-weight-bold">{{place.name}}</p>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <h2><span class="text-uppercase">Top</span> 6 Custo-benefício</h2>
-    <div class="row">
-        <div class="col-2" ng-repeat="place in topCustoBeneficio">
-            <img class="image-top" ng-src="{{place.image}}">
-            <p class="font-weight-bold">{{place.name}}</p>
+    <section class="secao-top">
+        <h2><span class="text-uppercase">Top</span> 4 custo-benefício</h2>
+        <div class="row">
+            <div class="col-3" ng-repeat="place in topCustoBeneficio">
+                <a href="#/info" alt="Link para as informações do lugar: {{place.name}}">
+                    <img class="image-top" ng-src="{{place.image}}">
+                    <p class="font-weight-bold">{{place.name}}</p>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section class="secao-top">
+        <h2><span class="text-uppercase">Top</span> 4 suas categorias favoritas</h2>
+        <div class="row">
+            <div class="col-3" ng-repeat="place in topCategoriasUsuario">
+                <a href="#/info" alt="Link para as informações do lugar: {{place.name}}">
+                    <img class="image-top" ng-src="{{place.image}}">
+                    <p class="font-weight-bold">{{place.name}}</p>
+                </a>
+            </div>
+        </div>
+    </section>
 
 </div>
