@@ -1,5 +1,5 @@
 <div class="container">
-    <section class="busca-opcoes row border-bottom">
+    <section class="busca-campo row border-bottom">
         <h1 class="sr-only">Campo de busca</h1>
         <div class="input-group mb-3 col-10 mx-auto">
             <input type="text" class="form-control" placeholder="Cidade ou nome do lugar" aria-label="Cidade ou nome do lugar" aria-describedby="basic-addon2">
@@ -10,7 +10,7 @@
     </section>
 
     <section class="resultados-busca-filtros row">
-        <header class="categorias-filter col-2 border-right">
+        <header class="categorias-filter col-2 border-right border-left border-bottom bg-light">
             <form>
                 <h1 class="sr-only">Filtros da busca</h1>
                 <section>
@@ -21,7 +21,7 @@
                     </div>
                 </section>
                 <section>
-                    <span class="font-weight-bold">Classificação Mínima</span>
+                    <span class="font-weight-bold">Classificação mínima</span>
                     <div class="form-check" ng-repeat="qtdeEstrelas in [1, 2, 3, 4, 5] track by $index">
                         <input class="form-check-input" name="classificacao" type="radio" id="classificacao{{qtdeEstrelas}}" value="Classificação {{qtdeEstrelas}}">
                         <label class="form-check-label" for="classificacao1">
@@ -43,7 +43,7 @@
             </form>
         </header>
 
-        <section class="resultados-busca col-10">
+        <section class="resultados-busca col-10 border-right">
             <h1 class="sr-only">Resultados da busca</h1>
             <article class="resultado-unico-busca row border-bottom" ng-repeat="lugar in lugaresResultado">
                 <div class="col-4">

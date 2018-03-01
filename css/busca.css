@@ -1,11 +1,11 @@
-.busca-opcoes {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+.busca-campo {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 .resultado-unico-busca {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .categorias-filter form {
