@@ -8,7 +8,7 @@ app.controller('InfoCtrl', function($scope) {
         sumPrices: 20,
         qtdePrices: 5,
         avgPrices: 4,
-        categories: ['Monumento']
+        categories: ['Monumento', 'Sítio Histórico']
     };
 
 

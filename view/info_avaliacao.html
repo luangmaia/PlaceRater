@@ -1,19 +1,72 @@
 <div class="container">
-    <h3 class="font-weight-bold">{{lugar.name}}</h3>
-    <p class="font-weight-bold">
-        <span class="sr-only">{{lugar.avgStars}} estrelas</span>
-        <span>
-            <img src="images/estrela.png" class="img-estrela" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:lugar.avgStars" aria-hidden="true">
-        </span>
-        <span class="font-weight-light">{{lugar.qtdeStars}} avaliações</span>
-    </p>
-    <p class="font-weight-bold">
-        Custo: 
-        <span class="sr-only">Nota {{lugar.avgPrices}}</span>
-        <img src="images/dollar.svg" class="img-dollar" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:lugar.avgPrices" aria-hidden="true">
-    </p>
-    <p class="font-weight-bold">
-        Categorias: </br>
-        <span class="font-weight-normal" ng-repeat="categoria in lugar.categories">{{categoria}} </span>
-    </p>
+    <section>
+        <h3 class="font-weight-bold">{{lugar.name}}</h3>
+        <span><img src="images/map_marker.svg" class="img-map-marker" aria-label="Localização: ">Nova York, NY</span>
+        <div class="row bg-light descricao-info">
+            <span class="col-4">
+                <p class="font-weight-bold">
+                    Classificação:
+                    <span class="sr-only">{{lugar.avgStars}} estrelas</span>
+                    <span>
+                        <img src="images/estrela.png" class="img-estrela" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:lugar.avgStars" aria-hidden="true">
+                    </span>
+                    <span class="font-weight-light">{{lugar.qtdeStars}} avaliações</span>
+                </p>
+                <p class="font-weight-bold">
+                    Custo: 
+                    <span class="sr-only">Nota {{lugar.avgPrices}}</span>
+                    <img src="images/dollar.svg" class="img-dollar" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:lugar.avgPrices" aria-hidden="true">
+                </p>
+            </span>
+            <p class="font-weight-bold col-8">
+                Categorias: </br>
+                <span class="font-weight-normal" ng-repeat="categoria in lugar.categories">'{{categoria}}' </span>
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <img class="img-fluid" ng-src="{{lugar.image}}" aria-label="Imagem de {{lugar.image}}">
+            </div>
+        </div>
+    </section>
+
+    <section class="secao-avaliacao">
+        <h4>Sua Avaliação</h4>
+        <form class="row">
+            <div class="col-2 form-group">
+                <p class="font-weight-bold">Classificação</p>
+                <div class="form-check" ng-repeat="qtdeEstrelas in [1, 2, 3, 4, 5] track by $index" ng-click="filtrar(categoriaSelecionada, qtdeEstrelas, priceFilter)">
+                    <input class="form-check-input" name="classificacao" type="radio" id="classificacao{{qtdeEstrelas}}" value="Classificação {{qtdeEstrelas}}">
+                    <label class="form-check-label" for="classificacao{{qtdeEstrelas}}">
+                        <span class="sr-only">{{qtdeEstrelas}} estrelas</span>
+                        <img src="images/estrela.png" class="img-estrela" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:qtdeEstrelas" aria-hidden="true">
+                    </label>
+                </div>
+            </div>
+            <div class="col-2 form-group">
+                <p class="font-weight-bold">Custo</p>
+                <div class="form-check" ng-repeat="qtdeDollars in [1, 2, 3, 4, 5] track by $index" ng-click="filtrar(categoriaSelecionada, starFilter, qtdeDollars)">
+                    <input class="form-check-input" name="custo" type="radio" id="custo{{qtdeDollars}}" value="Custo {{qtdeDollars}}">
+                    <label class="form-check-label" for="custo{{qtdeDollars}}">
+                        <span class="sr-only">Nota de custo {{qtdeDollars}}</span>
+                        <img src="images/dollar.svg" class="img-dollar" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:qtdeDollars" aria-hidden="true">
+                    </label>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1" class="font-weight-bold">Comentário</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="(opcional)"></textarea>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <input class="btn btn-outline-primary" type="submit" value="Realizar Avaliação">
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="info-avaliacoes border-top">
+
+    </section>
 </div>
