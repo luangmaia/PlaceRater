@@ -1,7 +1,7 @@
 services.factory('GetTopPlaces', function($resource) {
     return {
         getTopPopulares: function(qtdeParam) {
-            return $resource('http://localhost:53010/toppopulares/:qtde', {}, {
+            return $resource(localhostAPI+'toppopulares/:qtde', {}, {
                 query: {
                     method: 'GET',
                     isArray: true,
@@ -12,7 +12,7 @@ services.factory('GetTopPlaces', function($resource) {
             }).query();
         },
         getTopAvaliados: function(qtdeParam) {
-            return $resource('http://localhost:53010/topavaliados/:qtde', {}, {
+            return $resource(localhostAPI+'topavaliados/:qtde', {}, {
                 query: {
                     method: 'GET',
                     isArray: true,
@@ -23,7 +23,7 @@ services.factory('GetTopPlaces', function($resource) {
             }).query();
         },
         getTopCustoBeneficio: function(qtdeParam) {
-            return $resource('http://localhost:53010/topcustobeneficio/:qtde', {}, {
+            return $resource(localhostAPI+'topcustobeneficio/:qtde', {}, {
                 query: {
                     method: 'GET',
                     isArray: true,
