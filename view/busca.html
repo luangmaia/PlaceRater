@@ -1,30 +1,30 @@
 <div class="container">
-    <section class="busca-opcoes row border-bottom">
+    <section class="busca-campo row">
         <h1 class="sr-only">Campo de busca</h1>
         <div class="input-group mb-3 col-10 mx-auto">
-            <input type="text" class="form-control" placeholder="Cidade ou nome do lugar" aria-label="Cidade ou nome do lugar" aria-describedby="basic-addon2">
+            <input type="text" class="form-control" placeholder="Cidade, estado ou nome do lugar" aria-label="Cidade, estado ou nome do lugar" aria-describedby="basic-addon2" ng-model="inputCampoDeBusca">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Buscar</button>
+                <button class="btn btn-outline-secondary" type="button" ng-click="buscar()">Buscar</button>
             </div>
         </div>
     </section>
 
     <section class="resultados-busca-filtros row">
-        <header class="categorias-filter col-2 border-right">
+        <header class="categorias-filter col-2 border-right border-left border-bottom border-top bg-light">
             <form>
                 <h1 class="sr-only">Filtros da busca</h1>
-                <section>
+                <section ng-show="categorias.length > 0">
                     <span class="font-weight-bold">Categorias</span>
-                    <div class="form-check" ng-repeat="categoria in categorias">
-                        <input type="checkbox" class="form-check-input" value="{{categoria.name}}" id="{{categoria.name}}Categoria">
-                        <label class="form-check-label" for="{{categoria.name}}Categoria">{{categoria.name}}</label>
+                    <div class="form-check" ng-repeat="categoria in categorias track by $index" ng-click="filtrar(categoria)">
+                        <input class="form-check-input" name="categorias" type="radio" value="{{categoria.Name}}" id="{{categoria.Name}}Categoria">
+                        <label class="form-check-label" for="{{categoria.Name}}Categoria">{{categoria.Name}}</label>
                     </div>
                 </section>
                 <section>
-                    <span class="font-weight-bold">Classificação Mínima</span>
-                    <div class="form-check" ng-repeat="qtdeEstrelas in [1, 2, 3, 4, 5] track by $index">
+                    <span class="font-weight-bold">Classificação mínima</span>
+                    <div class="form-check" ng-repeat="qtdeEstrelas in [1, 2, 3, 4, 5] track by $index" ng-click="filtrar(categoriaSelecionada, qtdeEstrelas, priceFilter)">
                         <input class="form-check-input" name="classificacao" type="radio" id="classificacao{{qtdeEstrelas}}" value="Classificação {{qtdeEstrelas}}">
-                        <label class="form-check-label" for="classificacao1">
+                        <label class="form-check-label" for="classificacao{{qtdeEstrelas}}">
                             <span class="sr-only">{{qtdeEstrelas}} ou mais estrelas</span>
                             <img src="images/estrela.png" class="img-estrela" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:qtdeEstrelas" aria-hidden="true">
                         </label>
@@ -32,9 +32,9 @@
                 </section>
                 <section>
                     <span class="font-weight-bold">Custo máximo</span>
-                    <div class="form-check" ng-repeat="qtdeDollars in [1, 2, 3, 4, 5] track by $index">
+                    <div class="form-check" ng-repeat="qtdeDollars in [1, 2, 3, 4, 5] track by $index" ng-click="filtrar(categoriaSelecionada, starFilter, qtdeDollars)">
                         <input class="form-check-input" name="custo" type="radio" id="custo{{qtdeDollars}}" value="Custo {{qtdeDollars}}">
-                        <label class="form-check-label" for="custo1">
+                        <label class="form-check-label" for="custo{{qtdeDollars}}">
                             <span class="sr-only">Nota {{qtdeDollars}} ou menos</span>
                             <img src="images/dollar.svg" class="img-dollar" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:qtdeDollars" aria-hidden="true">
                         </label>
@@ -43,13 +43,13 @@
             </form>
         </header>
 
-        <section class="resultados-busca col-10">
+        <section class="resultados-busca col-10 border-top" ng-show="placesSearch.length > 0">
             <h1 class="sr-only">Resultados da busca</h1>
-            <article class="resultado-unico-busca row border-bottom" ng-repeat="lugar in lugaresResultado">
+            <article class="resultado-unico-busca row border-bottom border-right" ng-repeat="lugar in placesSearch">
                 <div class="col-4">
-                    <a href="#/info" alt="Link para as informações do lugar: {{lugar.name}}">
-                        <img class="col-12" src="{{lugar.image}}">
-                        <span class="font-weight-bold d-flex justify-content-center">{{lugar.name}}</span>
+                    <a href="#/info" alt="Link para as informações do lugar: {{lugar.Name}}">
+                        <img class="col-12" src="{{lugar.Images[0].Url}}">
+                        <span class="font-weight-bold d-flex justify-content-center">{{lugar.Name}}</span>
                     </a>
                 </div>
                 <div class="col-8">
@@ -59,7 +59,7 @@
                         <span>
                             <img src="images/estrela.png" class="img-estrela" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:lugar.avgStars" aria-hidden="true">
                         </span>
-                        <span class="font-weight-light">{{lugar.qtdeStars}} avaliações</span>
+                        <span class="font-weight-light">{{lugar.qtdeRates}} <span ng-hide="lugar.qtdeRates == 1">avaliações</span><span ng-hide="lugar.qtdeRates != 1">avaliação</span></span>
                     </p>
                     <p class="font-weight-bold">
                         Custo: 
@@ -68,10 +68,16 @@
                     </p>
                     <p class="font-weight-bold">
                         Categorias: </br>
-                        <span class="font-weight-normal" ng-repeat="categoria in lugar.categories">{{categoria}} </span>
+                        <span class="font-weight-normal" ng-repeat="categoria in lugar.Categories">{{categoria.Name}}</br></span>
                     </p>
                 </div>
             </article>
         </section>
     </section>
+
+    <nav class="pages" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" ng-repeat="page in pages" ng-click="mudarPagina(page)"><a class="page-link" href="">{{page}}</a></li>
+        </ul>
+    </nav>
 </div>
