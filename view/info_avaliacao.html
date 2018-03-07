@@ -1,5 +1,5 @@
 <div class="container">
-    <section>
+    <section class="info-section">
         <h3 class="font-weight-bold">{{lugar.Name}}</h3>
         <span><img src="images/map_marker.svg" class="img-map-marker" aria-label="Localização: ">{{lugar.City}}, {{lugar.State}}</span>
         <div class="row bg-light rounded border border-dark descricao-info">
@@ -27,17 +27,25 @@
         <div class="row">
             <div class="mx-auto">
                 <div class="col-12">
-                    <img class="img-fluid" ng-src="{{lugar.Images[0].Url}}" aria-label="Imagem de {{lugar.Name}}">
+                    <img class="img-fluid" ng-src="{{lugar.Images[indexFoto].Url}}" aria-label="Imagem de {{lugar.Name}}">
                 </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-around botoes-foto">
+            <div class="col-6">
+                <button ng-disabled="lugar.Images.length == 0 || indexFoto == 0" type="button" class="btn btn-outline-secondary btn-block" ng-click="fotoAnterior()">Foto anterior</button>
+            </div>
+            <div class="col-6">
+                <button ng-disabled="lugar.Images.length == 0 || indexFoto == lugar.Images.length-1" type="button" class="btn btn-outline-secondary btn-block" ng-click="proximafoto()">Próxima foto</button>
             </div>
         </div>
     </section>
 
-    <section class="secao-avaliacao">
+    <section ng-hide="$storage.user == null" class="secao-avaliacao">
         <h4>Faça sua avaliação</h4>
         <form class="row">
             <div class="col-2 form-group">
-                <p>Classificação</p>
+                <p class="font-weight-bold">Classificação</p>
                 <div class="form-check" ng-repeat="qtdeEstrelas in [1, 2, 3, 4, 5] track by $index" ng-click="chooseStars(qtdeEstrelas)">
                     <input ng-disabled="jaAvaliou == true" class="form-check-input" name="classificacao" type="radio" id="classificacao{{qtdeEstrelas}}" value="Classificação {{qtdeEstrelas}}">
                     <label class="form-check-label" for="classificacao{{qtdeEstrelas}}">

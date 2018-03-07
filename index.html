@@ -30,7 +30,8 @@
 						</li>
 					</ul>
 					<span class="navbar-text">
-						<span><a class="text-primary" role="button" href="">Cadastro</a> <span aria-hidden="true">|</span><span class="sr-only">ou</span> <a class="text-primary" role="button" href="">Login</a></span>
+						<span ng-hide="$storage.user != null"><a class="text-primary" role="button" href="#/cadastro">Cadastro</a> <span aria-hidden="true">|</span><span class="sr-only">ou</span> <a class="text-primary" role="button" href="#/login">Login</a></span>
+						<span ng-hide="$storage.user == null">Olá, {{$storage.user.Name}}. <span aria-hidden="true">| </span><a class="text-primary" role="button" href="" ng-click="deslogar()" aria-label="Clique para deslogar">Sair</a></span>
 					</span>
 				</div>
 			</nav>
@@ -58,12 +59,14 @@
 		<script src="js/services/GetCategories.js"></script>
 		<script src="js/services/PostRate.js"></script>
 		<script src="js/services/DeleteRate.js"></script>
+		<script src="js/services/UserService.js"></script>
 
 		<script src="js/controllers/IndexCtrl.js"></script>
 		<script src="js/controllers/InicialCtrl.js"></script>
 		<script src="js/controllers/BuscaCtrl.js"></script>
 		<script src="js/controllers/InfoCtrl.js"></script>
 		<script src="js/controllers/CadastroCtrl.js"></script>
+		<script src="js/controllers/LoginCtrl.js"></script>
 
 		<!--<script src="js/services/PetsByStatus.js"></script>
 		<script src="js/services/MakeOrder.js"></script>

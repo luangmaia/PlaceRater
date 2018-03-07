@@ -5,7 +5,6 @@
 }
 
 .secao-avaliacao {
-    margin-top: 2rem;
     margin-bottom: 2rem;
 }
 
@@ -22,4 +21,12 @@
     margin-left: 1rem;
     margin-top: 8px;
     margin-bottom: 8px;
+}
+
+.info-section {
+    margin-bottom: 2rem;
+}
+
+.botoes-foto {
+    margin-top: 1rem;
 }

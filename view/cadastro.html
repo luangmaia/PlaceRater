@@ -1,4 +1,7 @@
 <div class="container">
+	<div ng-hide="alertIncorreto != true" class="alert alert-danger" role="alert">
+		{{mensagemErro}}
+	</div>
 	<div class="card">
 		<div class="card-header">
 			<h5 class="d-flex justify-content-center">Cadastro</h5>
@@ -8,29 +11,29 @@
 		<div class="card-body">
 			<h5 class="card-title">Cadastro</h5>
 			
-			<form class="needs-validation" novalidate>
+			<form>
 				<div class="form-row">
 					<div class="form-group col-6">
 						<label for="inputNome">Nome <span aria-label=" campo (obrigatório)" class="font-weight-light">(obrigatório)</span></label>
-						<input type="text" class="form-control" id="inputNome" placeholder="João da Silva" ng-model="user.Name" maxlength="64" required>
+						<input ng-change="inputChange()" type="text" class="form-control" id="inputNome" placeholder="João da Silva" ng-model="user.Name" maxlength="64" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="inputEmail">E-mail <span aria-label=" campo (obrigatório)" class="font-weight-light">(obrigatório)</span></label>
-					<input type="email" class="form-control" id="inputEmail" placeholder="joaosilva@mail.com" ng-model="user.Email" maxlength="30" required>
+					<input ng-change="inputChange()" type="email" class="form-control" id="inputEmail" placeholder="joaosilva@mail.com" ng-model="user.Email" maxlength="30" required>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-6">
 						<label for="inputUsuario">Nome de usuário <span aria-label=" campo (obrigatório)" class="font-weight-light">(obrigatório)</span></label>
-						<input type="text" class="form-control" id="inputUsuario" placeholder="" ng-model="user.Login" maxlength="15" required>
+						<input ng-change="inputChange()" type="text" class="form-control" id="inputUsuario" placeholder="" ng-model="user.Login" maxlength="15" required>
 					</div>
 					<div class="form-group col-6">
 						<label for="inputSenha">Senha <span aria-label=" campo (obrigatório)" class="font-weight-light">(obrigatório)</span></label>
-						<input type="password" class="form-control" id="inputSenha" placeholder="" ng-model="user.HashPass" maxlength="20">
+						<input ng-change="inputChange()" type="password" class="form-control" id="inputSenha" placeholder="" ng-model="user.HashPass" maxlength="20" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-outline-primary btn-block submit-form" ng-click="cadastrarClick()">Cadastrar</button>
+					<button type="submit" class="btn btn-outline-primary btn-block" ng-click="cadastrarClick()">Cadastrar</button>
 				</div>
 			</form>
 

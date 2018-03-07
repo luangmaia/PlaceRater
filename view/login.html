@@ -1,4 +1,4 @@
-<div class="container top-padding-2">
+<div class="container">
 	<div ng-hide="alertIncorreto != true" class="alert alert-danger" role="alert">
 		Usuário e/ou senha incorreto(s)!
 	</div>
@@ -10,26 +10,20 @@
 					<span class="d-flex justify-content-center">Por favor, digite seu usuário e senha.</span>
 				</div>
 				
-				<div class="card-body padding-left-right-4 padding-top-bottom-2">
+				<div class="card-body">
 					<h5 class="card-title">Login</h5>
 					
-					<form class="needs-validation" novalidate>
+					<form>
 						<div class="form-group">
 							<label for="inputUsuario">Nome de usuário</label>
-							<input type="text" class="form-control" id="inputUsuario" ng-change="inputChange()" placeholder="Usuário" ng-model="user.username" maxlength="15" required>
-							<div class="invalid-feedback">
-								<span>Este campo é obrigatório.</span>
-							</div>
+							<input type="text" class="form-control" id="inputUsuario" ng-change="inputChange()" placeholder="" ng-model="user.Login" maxlength="15" required>
 						</div>
 						<div class="form-group">
 							<label for="inputSenha">Senha</label>
-							<input type="password" class="form-control" id="inputSenha" ng-change="inputChange()" placeholder="Senha" ng-model="user.password" maxlength="20" required>
-							<div class="invalid-feedback">
-								Este campo é obrigatório.
-							</div>
+							<input type="password" class="form-control" id="inputSenha" ng-change="inputChange()" placeholder="" ng-model="user.HashPass" maxlength="20" required>
 						</div>
 						<div class="form-group">
-							<button type="submit" ng-disabled="formValid != true" class="btn btn-outline-primary btn-block submit-form" ng-click="entrarClick()">Entrar</button>
+							<button type="submit" class="btn btn-outline-primary btn-block" ng-click="entrarClick()">Entrar</button>
 						</div>
 					</form>
 
