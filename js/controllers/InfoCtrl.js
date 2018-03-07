@@ -1,8 +1,10 @@
-app.controller('InfoCtrl', function($scope, $routeParams, GetPlaces, GetRates, PostRate, DeleteRate) {
+app.controller('InfoCtrl', function($scope, $routeParams, GetPlaces, GetRates, PostRate, DeleteRate, $sessionStorage) {
+    $scope.$storage = $sessionStorage;
     console.log($routeParams.Name+" - "+$routeParams.City+" - "+$routeParams.State);
     var places = GetPlaces.getPlace({ Name: $routeParams.Name, State: $routeParams.State, City: $routeParams.City });
     $scope.ordemRates = "Stars";
     $scope.ordemReversa = true;
+    $scope.indexFoto = 0;
 
     var carregarAvaliacoes = function() {
         carregarAvaliacaoGeral();
@@ -12,13 +14,15 @@ app.controller('InfoCtrl', function($scope, $routeParams, GetPlaces, GetRates, P
             console.log($scope.rates);
         });
 
-        $scope.userRate = GetRates.getRate("user3", $scope.lugar.Name, $scope.lugar.City, $scope.lugar.State);
-        $scope.userRate.$promise.then(function() {
-            $scope.jaAvaliou = true;
-            $scope.comment = $scope.userRate.Comment;
-        }, function() {
-            $scope.jaAvaliou = false;
-        });
+        if ($sessionStorage.user != null) {
+            $scope.userRate = GetRates.getRate($sessionStorage.user.Login, $scope.lugar.Name, $scope.lugar.City, $scope.lugar.State);
+            $scope.userRate.$promise.then(function() {
+                $scope.jaAvaliou = true;
+                $scope.comment = $scope.userRate.Comment;
+            }, function() {
+                $scope.jaAvaliou = false;
+            });
+        }
     }
 
     var carregarAvaliacaoGeral = function () {
@@ -57,7 +61,7 @@ app.controller('InfoCtrl', function($scope, $routeParams, GetPlaces, GetRates, P
 
     $scope.enviarAvaliacao = function() {
         PostRate.postRate({
-            Login: "user3",
+            Login: $sessionStorage.user.Login,
             Name: $scope.lugar.Name,
             City: $scope.lugar.City,
             State: $scope.lugar.State,
@@ -71,7 +75,7 @@ app.controller('InfoCtrl', function($scope, $routeParams, GetPlaces, GetRates, P
 
     $scope.deletarAvaliacao = function() {
         DeleteRate.deleteRate({
-            Login: "user3",
+            Login: $sessionStorage.user.Login,
             Name: $scope.lugar.Name,
             City: $scope.lugar.City,
             State: $scope.lugar.State
@@ -92,30 +96,15 @@ app.controller('InfoCtrl', function($scope, $routeParams, GetPlaces, GetRates, P
         $scope.ordemRates = criterio;
     };
 
-    /*$scope.lugar = {
-        image: "http://s2.glbimg.com/YXuZNyYL3I2LJuQCs2fA79qnWE0=/i.glbimg.com/og/ig/infoglobo1/f/original/2016/06/21/estatua.jpg",
-        name: "Estátua da Liberdade",
-        sumStars: 20,
-        qtdeStars: 4,
-        avgStars: 5,
-        sumPrices: 20,
-        qtdePrices: 5,
-        avgPrices: 4,
-        categories: ['Monumento', 'Sítio Histórico']
-    };*/
-
-    /*$scope.rates = [
-        {
-            Name: "luangmaia",
-            Stars: 5,
-            Price: 4,
-            Comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        },
-        {
-            Name: "leehdmgs",
-            Stars: 3,
-            Price: 2,
-            Comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    $scope.fotoAnterior = function() {
+        if ($scope.indexFoto > 0) {
+            $scope.indexFoto --;
         }
-    ];*/
+    };
+
+    $scope.proximafoto = function() {
+        if ($scope.indexFoto < $scope.lugar.Images.length-1) {
+            $scope.indexFoto ++;
+        }
+    };
 });
