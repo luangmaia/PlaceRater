@@ -24,6 +24,17 @@ services.factory('GetPlaces', function($resource) {
                     }
                 }
             }).query(queryParams);
+        },
+        getPlace: function(queryParams) {
+            return $resource(localhostAPI+'places/', {}, {
+                query: {
+                    method: 'GET',
+                    isArray: true,
+                    params: {
+                        
+                    }
+                }
+            }).query(queryParams);
         }/*,
         searchByNameCityStatePaginado: function(strBuscaParam, pageParam) {
             return $resource('http://localhost:53010/procurarLugares/:page/:strBusca', {}, {

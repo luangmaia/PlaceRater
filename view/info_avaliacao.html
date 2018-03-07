@@ -1,8 +1,8 @@
 <div class="container">
     <section>
-        <h3 class="font-weight-bold">{{lugar.name}}</h3>
-        <span><img src="images/map_marker.svg" class="img-map-marker" aria-label="Localização: ">Nova York, NY</span>
-        <div class="row bg-light descricao-info">
+        <h3 class="font-weight-bold">{{lugar.Name}}</h3>
+        <span><img src="images/map_marker.svg" class="img-map-marker" aria-label="Localização: ">{{lugar.City}}, {{lugar.State}}</span>
+        <div class="row bg-light rounded border border-dark descricao-info">
             <span class="col-4">
                 <p class="font-weight-bold">
                     Classificação:
@@ -10,7 +10,7 @@
                     <span>
                         <img src="images/estrela.png" class="img-estrela" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:lugar.avgStars" aria-hidden="true">
                     </span>
-                    <span class="font-weight-light">{{lugar.qtdeStars}} avaliações</span>
+                    <span class="font-weight-light">{{lugar.qtdeRates}}  <span ng-hide="lugar.qtdeRates == 1">avaliações</span><span ng-hide="lugar.qtdeRates != 1">avaliação</span></span>
                 </p>
                 <p class="font-weight-bold">
                     Custo: 
@@ -20,24 +20,26 @@
             </span>
             <p class="font-weight-bold col-8">
                 Categorias: </br>
-                <span class="font-weight-normal" ng-repeat="categoria in lugar.categories">'{{categoria}}' </span>
+                <span class="font-weight-normal" ng-repeat="categoria in lugar.Categories">{{categoria.Name}}<span ng-hide="$index == lugar.Categories.length-1">, </span></span>
             </p>
         </div>
 
         <div class="row">
-            <div class="col-12">
-                <img class="img-fluid" ng-src="{{lugar.image}}" aria-label="Imagem de {{lugar.image}}">
+            <div class="mx-auto">
+                <div class="col-12">
+                    <img class="img-fluid" ng-src="{{lugar.Images[0].Url}}" aria-label="Imagem de {{lugar.Name}}">
+                </div>
             </div>
         </div>
     </section>
 
     <section class="secao-avaliacao">
-        <h4>Sua Avaliação</h4>
+        <h4>Faça sua avaliação</h4>
         <form class="row">
             <div class="col-2 form-group">
-                <p class="font-weight-bold">Classificação</p>
-                <div class="form-check" ng-repeat="qtdeEstrelas in [1, 2, 3, 4, 5] track by $index" ng-click="filtrar(categoriaSelecionada, qtdeEstrelas, priceFilter)">
-                    <input class="form-check-input" name="classificacao" type="radio" id="classificacao{{qtdeEstrelas}}" value="Classificação {{qtdeEstrelas}}">
+                <p>Classificação</p>
+                <div class="form-check" ng-repeat="qtdeEstrelas in [1, 2, 3, 4, 5] track by $index" ng-click="chooseStars(qtdeEstrelas)">
+                    <input ng-disabled="jaAvaliou == true" class="form-check-input" name="classificacao" type="radio" id="classificacao{{qtdeEstrelas}}" value="Classificação {{qtdeEstrelas}}">
                     <label class="form-check-label" for="classificacao{{qtdeEstrelas}}">
                         <span class="sr-only">{{qtdeEstrelas}} estrelas</span>
                         <img src="images/estrela.png" class="img-estrela" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:qtdeEstrelas" aria-hidden="true">
@@ -46,8 +48,8 @@
             </div>
             <div class="col-2 form-group">
                 <p class="font-weight-bold">Custo</p>
-                <div class="form-check" ng-repeat="qtdeDollars in [1, 2, 3, 4, 5] track by $index" ng-click="filtrar(categoriaSelecionada, starFilter, qtdeDollars)">
-                    <input class="form-check-input" name="custo" type="radio" id="custo{{qtdeDollars}}" value="Custo {{qtdeDollars}}">
+                <div class="form-check" ng-repeat="qtdeDollars in [1, 2, 3, 4, 5] track by $index" ng-click="chooseDollars(qtdeDollars)">
+                    <input ng-disabled="jaAvaliou == true" class="form-check-input" name="custo" type="radio" id="custo{{qtdeDollars}}" value="Custo {{qtdeDollars}}">
                     <label class="form-check-label" for="custo{{qtdeDollars}}">
                         <span class="sr-only">Nota de custo {{qtdeDollars}}</span>
                         <img src="images/dollar.svg" class="img-dollar" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:qtdeDollars" aria-hidden="true">
@@ -57,10 +59,11 @@
             <div class="col-8">
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1" class="font-weight-bold">Comentário</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="(opcional)"></textarea>
+                    <textarea ng-disabled="jaAvaliou == true" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="(opcional)" ng-model="comment"></textarea>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <input class="btn btn-outline-primary" type="submit" value="Realizar Avaliação">
+                    <input ng-show="jaAvaliou == true" class="btn btn-outline-danger" type="submit" value="Remover Avaliação" ng-click="deletarAvaliacao()">
+                    <input ng-hide="jaAvaliou == true" class="btn btn-outline-primary" type="submit" value="Realizar Avaliação" ng-click="enviarAvaliacao()">
                 </div>
             </div>
         </form>
@@ -68,8 +71,14 @@
 
     <section class="info-avaliacoes border-top">
         <h4>Avaliações</h4>
-        <div class="avaliacao-unica border-bottom" ng-repeat="rate in rates">
-            <p><span class="font-weight-bold">Usuário:</span> {{rate.Name}}</p>
+        <header class="border-top border-bottom secao-ordenar">
+            <span class="font-weight-bold">Ordenar por:</span>
+            <button ng-click="ordenarPor('Stars')" type="button" class="btn btn-outline-primary btn-sm">Classificação</button>
+            <button ng-click="ordenarPor('Price')" type="button" class="btn btn-outline-primary btn-sm">Custo</button>
+            <button ng-click="ordenarPor('Login')" type="button" class="btn btn-outline-primary btn-sm">Usuário</button>
+        </header>
+        <div class="avaliacao-unica border-bottom" ng-repeat="rate in rates | orderBy : ordemRates : ordemReversa">
+            <p><span class="font-weight-bold">Usuário:</span> {{rate.Login}}</p>
             <div class="row">
                 <div class="col-2">
                     <span class="font-weight-bold">Classificação</span></br>
@@ -81,7 +90,7 @@
                     <span class="sr-only">Nota {{rate.Price}}</span>
                     <img src="images/dollar.svg" class="img-dollar" ng-repeat="i in [1, 2, 3, 4, 5]|limitTo:rate.Price" aria-hidden="true">
                 </div>
-                <div class="col-10">
+                <div class="col-10" ng-hide="rate.Comment == null">
                     <span class="font-weight-bold">Comentário</span></br>
                     <span class="font-weight-light">{{rate.Comment}}</span>
                 </div>

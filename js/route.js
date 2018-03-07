@@ -9,9 +9,14 @@ app.config(function($routeProvider) {
         controller: 'BuscaCtrl'
     });
 
-    $routeProvider.when('/info', {
+    $routeProvider.when('/info/:Name/:City/:State', {
         templateUrl: 'view/info_avaliacao.html',
         controller: 'InfoCtrl'
+    });
+
+    $routeProvider.when('/cadastro', {
+        templateUrl: 'view/cadastro.html',
+        controller: ''
     });
 
     $routeProvider.otherwise({redirectTo: '/'});
