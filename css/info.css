@@ -1,0 +1,25 @@
+.descricao-info {
+    padding-top: 15px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.secao-avaliacao {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.info-avaliacoes {
+    padding-top: 1rem;
+}
+
+.avaliacao-unica {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.secao-ordenar button {
+    margin-left: 1rem;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}

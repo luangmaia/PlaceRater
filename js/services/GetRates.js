@@ -35,6 +35,27 @@ services.factory('GetRates', function($resource) {
                     }
                 }
             }).query();
+        },
+        getRatesPlace: function(nameParam, cityParam, stateParam) {
+            return $resource(localhostAPI+'rates/', {}, {
+                query: {
+                    method: 'GET',
+                    isArray: true,
+                    params: {
+                        
+                    }
+                }
+            }).query({ Name: nameParam, City: cityParam, State: stateParam });
+        },
+        getRate: function(loginParam, nameParam, cityParam, stateParam) {
+            return $resource(localhostAPI+'rates/', {}, {
+                query: {
+                    method: 'GET',
+                    params: {
+                        
+                    }
+                }
+            }).query({ Login: loginParam, Name: nameParam, City: cityParam, State: stateParam });
         }
     }
 });

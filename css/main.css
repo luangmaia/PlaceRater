@@ -17,3 +17,10 @@
     width: auto;
     height: 1rem;
 }
+
+.img-map-marker {
+    width: auto;
+    height: 24px;
+    padding-left: 7px;
+    padding-right: 7px;
+}

@@ -47,7 +47,7 @@
             <h1 class="sr-only">Resultados da busca</h1>
             <article class="resultado-unico-busca row border-bottom border-right" ng-repeat="lugar in placesSearch">
                 <div class="col-4">
-                    <a href="#/info" alt="Link para as informações do lugar: {{lugar.Name}}">
+                    <a ng-href="#/info/{{lugar.Name}}/{{lugar.City}}/{{lugar.State}}" alt="Link para as informações do lugar: {{lugar.Name}}">
                         <img class="col-12" src="{{lugar.Images[0].Url}}">
                         <span class="font-weight-bold d-flex justify-content-center">{{lugar.Name}}</span>
                     </a>
@@ -68,7 +68,7 @@
                     </p>
                     <p class="font-weight-bold">
                         Categorias: </br>
-                        <span class="font-weight-normal" ng-repeat="categoria in lugar.Categories">{{categoria.Name}}</br></span>
+                        <span class="font-weight-normal" ng-repeat="categoria in lugar.Categories">{{categoria.Name}}<span ng-hide="$index == lugar.Categories.length-1">, </span></span>
                     </p>
                 </div>
             </article>
