@@ -18,6 +18,11 @@
     height: 1rem;
 }
 
+.img-chevron {
+    width: auto;
+    height: 100%;
+}
+
 .img-map-marker {
     width: auto;
     height: 24px;

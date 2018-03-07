@@ -1,6 +1,6 @@
 <div class="container">
-    <section class="secao-top">
-        <h2><span class="text-uppercase">Top</span> 4 populares</h2>
+    <section class="secao-top border border-secondary rounded">
+        <h2><span class="text-uppercase">Top</span> 4 lugares mais populares</h2>
         <div class="row">
             <div class="col-3" ng-repeat="place in topPopulares">
                 <a href="#/info/{{place.Name}}/{{place.City}}/{{place.State}}" alt="Link para as informações do lugar: {{place.Name}}">
@@ -11,8 +11,8 @@
         </div>
     </section>
 
-    <section class="secao-top">
-        <h2><span class="text-uppercase">Top</span> 4 avaliados</h2>
+    <section class="secao-top border border-secondary rounded">
+        <h2><span class="text-uppercase">Top</span> 4 lugares mais bem avaliados</h2>
         <div class="row">
             <div class="col-3" ng-repeat="place in topAvaliados">
                 <a href="#/info/{{place.Name}}/{{place.City}}/{{place.State}}" alt="Link para as informações do lugar: {{place.Name}}">
@@ -23,8 +23,8 @@
         </div>
     </section>
 
-    <section class="secao-top">
-        <h2><span class="text-uppercase">Top</span> 4 custo-benefício</h2>
+    <section class="secao-top border border-secondary rounded">
+        <h2><span class="text-uppercase">Top</span> 4 lugares mais baratos</h2>
         <div class="row">
             <div class="col-3" ng-repeat="place in topCustoBeneficio">
                 <a href="#/info/{{place.Name}}/{{place.City}}/{{place.State}}" alt="Link para as informações do lugar: {{place.Name}}">

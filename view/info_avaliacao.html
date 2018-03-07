@@ -81,9 +81,27 @@
         <h4>Avaliações</h4>
         <header class="border-top border-bottom secao-ordenar">
             <span class="font-weight-bold">Ordenar por:</span>
-            <button ng-click="ordenarPor('Stars')" type="button" class="btn btn-outline-primary btn-sm">Classificação</button>
-            <button ng-click="ordenarPor('Price')" type="button" class="btn btn-outline-primary btn-sm">Custo</button>
-            <button ng-click="ordenarPor('Login')" type="button" class="btn btn-outline-primary btn-sm">Usuário</button>
+            <button ng-click="ordenarPor('Stars')" type="button" class="btn btn-sm" 
+                ng-class="{ 'btn-primary': ordemRates === 'Stars', 'btn-outline-primary': ordemRates !== 'Stars'}" 
+                aria-label="Clique para ordenar por classificação">
+                Classificação
+                <img ng-hide="ordemRates !== 'Stars' || ordemReversa" class="img-chevron align-middle" src="images/icons/svg/chevron-top.svg" aria-label="ordenado inversamente">
+                <img ng-hide="ordemRates !== 'Stars' || !ordemReversa" class="img-chevron align-middle" src="images/icons/svg/chevron-bottom.svg" aria-label="ordenado em ordem normal">
+            </button>
+            <button ng-click="ordenarPor('Price')" type="button" class="btn btn-sm" 
+                ng-class="{ 'btn-primary': ordemRates === 'Price', 'btn-outline-primary': ordemRates !== 'Price'}" 
+                aria-label="Clique para ordenar por custo">
+                Custo
+                <img ng-hide="ordemRates !== 'Price' || ordemReversa" class="img-chevron align-middle" src="images/icons/svg/chevron-top.svg" aria-label="ordenado inversamente">
+                <img ng-hide="ordemRates !== 'Price' || !ordemReversa" class="img-chevron align-middle" src="images/icons/svg/chevron-bottom.svg" aria-label="ordenado em ordem normal">
+            </button>
+            <button ng-click="ordenarPor('Login')" type="button" class="btn btn-sm" 
+                ng-class="{ 'btn-primary': ordemRates === 'Login', 'btn-outline-primary': ordemRates !== 'Login'}" 
+                aria-label="Clique para ordenar por nome de usuário">
+                Usuário
+                <img ng-hide="ordemRates !== 'Login' || ordemReversa" class="img-chevron align-middle" src="images/icons/svg/chevron-top.svg" aria-label="ordenado inversamente">
+                <img ng-hide="ordemRates !== 'Login' || !ordemReversa" class="img-chevron align-middle" src="images/icons/svg/chevron-bottom.svg" aria-label="ordenado em ordem normal">
+            </button>
         </header>
         <div class="avaliacao-unica border-bottom" ng-repeat="rate in rates | orderBy : ordemRates : ordemReversa">
             <p><span class="font-weight-bold">Usuário:</span> {{rate.Login}}</p>

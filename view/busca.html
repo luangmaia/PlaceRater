@@ -1,12 +1,12 @@
 <div class="container">
     <section class="busca-campo row">
         <h1 class="sr-only">Campo de busca</h1>
-        <div class="input-group mb-3 col-10 mx-auto">
+        <form class="input-group mb-3 col-10 mx-auto">
             <input type="text" class="form-control" placeholder="Cidade, estado ou nome do lugar" aria-label="Cidade, estado ou nome do lugar" aria-describedby="basic-addon2" ng-model="inputCampoDeBusca">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" ng-click="buscar()">Buscar</button>
+                <button class="btn btn-outline-secondary" type="submit" ng-click="buscar()">Buscar</button>
             </div>
-        </div>
+        </form>
     </section>
 
     <section class="resultados-busca-filtros row">
